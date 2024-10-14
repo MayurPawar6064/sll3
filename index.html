@@ -9,7 +9,6 @@
       // The URL for the published Google Sheet (CSV format)
       const sheetUrl = 'https://docs.google.com/spreadsheets/d/1b4to-QuCvDl9bzFW9-eOSA6DrK80Af2VbyTAqioT4bA/gviz/tq?tqx=out:csv&gid=135478717';
       const response = await fetch(sheetUrl);
-      
       const data = await response.text();
 
       // Splitting CSV data into rows
