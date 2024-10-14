@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Form Data</title>
+  <script>
+    async function getFormData() {
+      // The URL for the published Google Sheet (CSV format)
+      const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/https://docs.google.com/spreadsheets/d/e/2PACX-1vRyYPE_P9QNdtfAXbmCiXnsZSvC3yrpg136Uen2kiy6lMiy3n1GKfQUu23l0TiyBB_7C2KmorXtzGNP/pubhtml?gid=135478717&single=true/pub?output=csv';
+
+      // Fetching the data
+      const response = await fetch(sheetUrl);
+      const data = await response.text();
+
+      // Splitting CSV data into rows
+      const rows = data.split('\n');
+      let table = '<table border="1">';
+
+      // Loop through the rows and create a table
+      rows.forEach((row, index) => {
+        const columns = row.split(',');
+        table += '<tr>';
+        columns.forEach(column => {
+          if (index === 0) {
+            table += `<th>${column}</th>`;  // Header row
+          } else {
+            table += `<td>${column}</td>`;  // Data rows
+          }
+        });
+        table += '</tr>';
+      });
+
+      table += '</table>';
+      document.getElementById('formData').innerHTML = table;
+    }
+  </script>
+</head>
+<body>
+  <h1>Google Form Data</h1>
+  <button onclick="getFormData()">Load Form Data</button>
+  <div id="formData"></div>
+</body>
+</html>
